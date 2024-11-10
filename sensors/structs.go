@@ -9,3 +9,13 @@ type Door struct {
 	Voltage            int  `json:"voltage"`
 	Device_Temperature int  `json:"device_temperature"`
 }
+
+// Aqara door sensor conversion struct
+type DoorSensorConversion struct {
+	Battery           float32
+	Contact           bool
+	LinkQuality       int
+	PowerOutageCount  int
+	Voltage           float32
+	DeviceTemperature float32
+}
