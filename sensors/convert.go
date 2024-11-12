@@ -13,3 +13,18 @@ func (d *Door) Convert() *DoorSensorConversion {
 		DeviceTemperature: float32(ConvertedTemperature),
 	}
 }
+
+// Convert Temp sensor temp to freedom units
+func (t *Temp) Convert() *TempSensorConversion {
+	ConvertedTemperature := (t.Device_Temperature * 9 / 5) + 32
+	ConvertedVoltage := t.Voltage / 1000
+	return &TempSensorConversion{
+		Battery:           float32(t.Battery),
+		LinkQuality:       t.Link_Quality,
+		PowerOutageCount:  t.Power_Outage_Count,
+		Voltage:           float32(ConvertedVoltage),
+		DeviceTemperature: float32(ConvertedTemperature),
+		Humidity:          t.Humidity,
+		Pressure:          t.Pressure,
+	}
+}
