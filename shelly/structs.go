@@ -10,3 +10,13 @@ type RelayStatus struct {
 	Overpower      bool   `json:"overpower"`
 	Source         string `json:"source"`
 }
+
+type Shelly struct {
+	RelayID string
+	RelayIP string
+}
+
+type ShellyOptions struct {
+	Timer string
+	Turn  string
+}
