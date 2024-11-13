@@ -44,7 +44,6 @@ func main() {
 	}
 
 	sub(client)
-	// publish(client)
 	select {}
 }
 
