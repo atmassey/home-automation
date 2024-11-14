@@ -3,6 +3,7 @@ module home-automation
 go 1.22.3
 
 require (
+	github.com/briandowns/openweathermap v0.21.0 // indirect
 	github.com/eclipse/paho.mqtt.golang v1.4.3 // indirect
 	github.com/golang/glog v1.2.1 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
