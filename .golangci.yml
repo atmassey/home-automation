@@ -1,0 +1,12 @@
+linters:
+    presets:
+      - bugs
+    disable:
+      - rowserrcheck
+      - sqlclosecheck
+      - funlen
+      - noctx
+      - gosmopolitan
+      - bodyclose
+run:
+    timeout: 2m
