@@ -13,7 +13,7 @@ func NewShelly(RelayID string) *Shelly {
 // GetRelayStatus returns the status of the relay
 func (s *Shelly) GetRelayStatus() (*RelayStatus, error) {
 	var status RelayStatus
-	req, err := http.NewRequest("GET", fmt.Sprintf("http://"+s.RelayIP+"/relay/0/"+s.RelayID), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("http://"+s.RelayIP+relay+s.RelayID), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -36,7 +36,7 @@ func (s *Shelly) TurnRelayOn(opts *ShellyOptions) error {
 	if opts.Timer == "" {
 		opts.Timer = "0"
 	}
-	req, err := http.NewRequest("GET", fmt.Sprintf("http://"+s.RelayIP+"/relay/0/"+s.RelayID), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("http://"+s.RelayIP+relay+s.RelayID), nil)
 	if err != nil {
 		return err
 	}
@@ -60,7 +60,7 @@ func (s *Shelly) TurnRelayOff(opts *ShellyOptions) error {
 	if opts.Timer == "" {
 		opts.Timer = "0"
 	}
-	req, err := http.NewRequest("GET", fmt.Sprintf("http://"+s.RelayIP+"/relay/0/"+s.RelayID), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("http://"+s.RelayIP+relay+s.RelayID), nil)
 	if err != nil {
 		return err
 	}
@@ -84,7 +84,7 @@ func (s *Shelly) ToggleRelay(opts *ShellyOptions) error {
 	if opts.Timer == "" {
 		opts.Timer = "0"
 	}
-	req, err := http.NewRequest("GET", fmt.Sprintf("http://"+s.RelayIP+"/relay/0/"+s.RelayID), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("http://"+s.RelayIP+relay+s.RelayID), nil)
 	if err != nil {
 		return err
 	}

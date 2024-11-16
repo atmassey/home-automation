@@ -14,7 +14,10 @@ func CurrentWeather(apiKey string, city string) (*owm.CurrentWeatherData, error)
 	if err != nil {
 		return nil, err
 	}
-	w.CurrentByName(city)
+	err = w.CurrentByName(city)
+	if err != nil {
+		return nil, err
+	}
 	return w, nil
 }
 
@@ -26,6 +29,9 @@ func Forecast(apiKey string, city string) (*owm.ForecastWeatherData, error) {
 	if err != nil {
 		return nil, err
 	}
-	f.DailyByName(city, 5)
+	err = f.DailyByName(city, 5)
+	if err != nil {
+		return nil, err
+	}
 	return f, nil
 }
