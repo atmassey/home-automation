@@ -1,6 +1,6 @@
 module home-automation
 
-go 1.22
+go 1.21
 
 require (
 	github.com/briandowns/openweathermap v0.21.0
