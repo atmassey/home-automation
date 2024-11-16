@@ -11,7 +11,9 @@ require (
 
 require (
 	github.com/golang/glog v1.2.1 // indirect
+	github.com/google/uuid v1.4.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
+	github.com/seamapi/go v0.6.1 // indirect
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/oauth2 v0.19.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
