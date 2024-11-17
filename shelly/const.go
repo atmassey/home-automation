@@ -1,3 +1,3 @@
 package shelly
 
-const relay = "/relay/0/"
+const relay = "relay/0"
