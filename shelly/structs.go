@@ -20,3 +20,30 @@ type ShellyOptions struct {
 	Timer string
 	Turn  string
 }
+
+type ShellyHAndT struct {
+	IsValid        bool           `json:"is_valid"`
+	Temp           ShellyTemp     `json:"tmp"`
+	Humidity       ShellyHumidity `json:"hum"`
+	Battery        ShellyBattery  `json:"bat"`
+	Action         []string       `json:"act_reasons"`
+	ConnectRetries int            `json:"connect_retries"`
+}
+
+type ShellyTemp struct {
+	Value   float64 `json:"value"`
+	Units   string  `json:"units"`
+	TC      float64 `json:"tC"`
+	TF      float64 `json:"tF"`
+	IsValid bool    `json:"is_valid"`
+}
+
+type ShellyHumidity struct {
+	Value   float64 `json:"value"`
+	IsValid bool    `json:"is_valid"`
+}
+
+type ShellyBattery struct {
+	Value   float64 `json:"value"`
+	Voltage float64 `json:"voltage"`
+}
