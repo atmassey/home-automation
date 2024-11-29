@@ -11,14 +11,51 @@ import (
 )
 
 var messagePubHandler mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
-	var door sensors.Door
-	fmt.Printf("Received message: %s from topic: %s\n", msg.Payload(), msg.Topic())
-	if msg.Topic() == "zigbee2mqtt/officedoor" {
+	switch msg.Topic() {
+	case "zigbee2mqtt/officedoor":
+		var door sensors.Door
 		err := json.Unmarshal(msg.Payload(), &door)
 		if err != nil {
 			fmt.Println(err)
 		}
 		fmt.Printf("Door: %v\n", door)
+	case "zigbee2mqtt/officetemp":
+		var temp sensors.Temp
+		err := json.Unmarshal(msg.Payload(), &temp)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Printf("Temp: %v\n", temp)
+	case "zigbee2mqtt/crawlspacetemp":
+		var temp sensors.Temp
+		err := json.Unmarshal(msg.Payload(), &temp)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Printf("Temp: %v\n", temp)
+	case "zigbee2mqtt/shedtemp":
+		var temp sensors.Temp
+		err := json.Unmarshal(msg.Payload(), &temp)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Printf("Temp: %v\n", temp)
+	case "zigbee2mqtt/anniesroom":
+		var door sensors.Door
+		err := json.Unmarshal(msg.Payload(), &door)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Printf("Door: %v\n", door)
+	case "zigbee2mqtt/sheddoor":
+		var door sensors.Door
+		err := json.Unmarshal(msg.Payload(), &door)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Printf("Door: %v\n", door)
+	default:
+		fmt.Printf("Unknown topic %s with payload %s", msg.Topic(), msg.Payload())
 	}
 }
 
