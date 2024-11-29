@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"home-automation/sensors"
 	"strconv"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
@@ -9,7 +11,15 @@ import (
 )
 
 var messagePubHandler mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
+	var door sensors.Door
 	fmt.Printf("Received message: %s from topic: %s\n", msg.Payload(), msg.Topic())
+	if msg.Topic() == "zigbee2mqtt/officedoor" {
+		err := json.Unmarshal(msg.Payload(), &door)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Printf("Door: %v\n", door)
+	}
 }
 
 var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
