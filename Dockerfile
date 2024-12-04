@@ -22,7 +22,7 @@ FROM alpine:latest
 WORKDIR /app
 
 # Copy the Pre-built binary file from the previous stage
-COPY --from=builder /app/go-weather /app/go-weather
+COPY --from=builder /app/home-automation /app/home-automation
 
 # Make sure the binary is executable
 RUN chmod +x /app/home-automation
