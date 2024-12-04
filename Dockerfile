@@ -24,9 +24,6 @@ WORKDIR /app
 # Copy the Pre-built binary file from the previous stage
 COPY --from=builder /app/go-weather /app/go-weather
 
-# Copy the web folder for templates and static files
-COPY /web /app/web
-
 # Make sure the binary is executable
 RUN chmod +x /app/home-automation
 
