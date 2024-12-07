@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"home-automation/sensors"
+	"home-automation/pkg/sensors"
 	"strconv"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
