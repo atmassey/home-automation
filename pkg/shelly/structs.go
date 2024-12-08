@@ -47,3 +47,5 @@ type ShellyBattery struct {
 	Value   float64 `json:"value"`
 	Voltage float64 `json:"voltage"`
 }
+
+//TODO: Add Shelly plug structs
