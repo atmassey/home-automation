@@ -23,9 +23,13 @@ WORKDIR /app
 
 # Copy the Pre-built binary file from the previous stage
 COPY --from=builder /app/home-automation /app/home-automation
-
+# Copy the web folder
+COPY /web /app/web
 # Make sure the binary is executable
 RUN chmod +x /app/home-automation
 
-# Command to run the executable
-CMD ["/app/home-automation"]
+# Create entrypoint script
+RUN echo -e '#!/bin/sh\nexec /app/home-automation' > /entrypoint.sh && chmod +x /entrypoint.sh
+
+# Command to run the entrypoint script
+ENTRYPOINT ["/entrypoint.sh"]
