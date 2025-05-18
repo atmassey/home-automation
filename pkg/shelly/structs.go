@@ -12,7 +12,6 @@ type RelayStatus struct {
 }
 
 type Shelly struct {
-	RelayID string
 	RelayIP string
 }
 

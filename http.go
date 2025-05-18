@@ -29,6 +29,7 @@ func HttpServer() {
 	load_templates()
 	http.HandleFunc("/", html_main)
 	http.HandleFunc("/sensors", html_sensors)
+	http.HandleFunc("/api/v1/toggle", toggle_shelly)
 	err := s.ListenAndServe()
 	if err != nil {
 		log.Fatal(err)
