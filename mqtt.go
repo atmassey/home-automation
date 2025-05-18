@@ -68,6 +68,7 @@ var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err
 }
 
 func StartMqtt() {
+	logger.Info("Staring Mqtt")
 	env, err := godotenv.Read()
 	if err != nil {
 		fmt.Println("Error loading .env file")

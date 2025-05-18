@@ -1,12 +1,30 @@
 package ecobee
 
 import (
-	"log"
+	"log/slog"
+	"os"
 
 	"github.com/rspier/go-ecobee/ecobee"
 )
 
-func status(apiKey string) {
+var apiKey string
+
+func init() {
+	apiKey = os.Getenv("ECOBEE_API_KEY")
+	if apiKey == "" {
+		slog.Error("No ecobee api key provided")
+	}
+}
+
+func Status(apiKey string) {
 	thermostat := ecobee.NewClient(apiKey, ".go-ecobee.yaml")
-	log.Printf("Thermostat: %v", thermostat)
+	selection := ecobee.Selection{
+		IncludeSensors: true,
+		IncludeAlerts:  true,
+	}
+	summary, err := thermostat.GetThermostatSummary(selection)
+	if err != nil {
+		slog.Error("error while gathering summary", "err", err)
+	}
+	slog.Info("Ecobee response", "summary", summary)
 }

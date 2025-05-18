@@ -21,6 +21,7 @@ func load_templates() {
 }
 
 func HttpServer() {
+	logger.Info("Starting http server")
 	s := &http.Server{
 		Addr:              ":8081",
 		ReadHeaderTimeout: time.Second * 10,
