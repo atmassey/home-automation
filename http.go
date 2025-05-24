@@ -63,3 +63,6 @@ func html_sensors(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 }
+
+func toggle_shelly(w http.ResponseWriter, r *http.Request) {
+}
