@@ -10,7 +10,7 @@ require (
 	github.com/seamapi/go v0.6.1
 	gorm.io/driver/postgres v1.5.11
 	gorm.io/gen v0.3.26
-	gorm.io/gorm v1.26.1
+	gorm.io/gorm v1.30.0
 )
 
 require (
