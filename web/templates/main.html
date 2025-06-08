@@ -2,26 +2,145 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Massey Home</title>
-    <link rel="script" href="/static/js/main.js">
-    <link rel="stylesheet" href="/static/styles/bootstrap.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/js/main.js" defer></script>
+    <style>
+        .btn-control {
+            width: 150px;
+            margin: 10px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <h1>Massey Home</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="/main">Home</a></li>
-            <li><a href="/sensors">Sensors</a></li>
-        </ul>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Massey Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sensors">Sensors</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
-    <main>
-        <h2>Home</h2>
-        <button id="office fan">Office Fan</button>
-        <button id="office light">Office Light</button>
-    </main>
-    <footer>
-        <p>&copy; 2024 Massey Home</p>
+
+    <div class="container py-4">
+        <h1 class="mb-4">Home Dashboard</h1>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="card-title mb-0">Office Controls</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="officeControlForm">
+                            <div class="d-flex flex-wrap justify-content-center">
+                                <button type="button" class="btn btn-primary btn-control" id="toggle-office-fan" 
+                                    data-location="office-fan">
+                                    <i class="bi bi-fan"></i> Office Fan
+                                </button>
+                                
+                                <button type="button" class="btn btn-warning btn-control" id="toggle-office-light"
+                                    data-location="office-light">
+                                    <i class="bi bi-lightbulb"></i> Office Light
+                                </button>
+                            </div>
+                            <div id="statusMessage" class="alert mt-3 d-none"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">System Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Office Fan
+                                <span class="badge bg-success" id="status-office-fan">ON</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Office Light
+                                <span class="badge bg-danger" id="status-office-light">OFF</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2025 Massey Home</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers for the device toggle buttons
+            document.querySelectorAll('[id^="toggle-"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const location = this.dataset.location;
+                    toggleDevice(location);
+                });
+            });
+            
+            function toggleDevice(location) {
+                const statusEl = document.getElementById('statusMessage');
+                
+                fetch('/api/v1/toggle/' + location, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ location: location })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    statusEl.textContent = 'Successfully toggled ' + location;
+                    statusEl.classList.remove('d-none', 'alert-danger');
+                    statusEl.classList.add('alert-success');
+                    
+                    // Update status indicators (this would depend on your API response)
+                    updateDeviceStatus(location, data.status);
+                })
+                .catch(error => {
+                    statusEl.textContent = 'Error: ' + error.message;
+                    statusEl.classList.remove('d-none', 'alert-success');
+                    statusEl.classList.add('alert-danger');
+                });
+            }
+            
+            function updateDeviceStatus(location, status) {
+                const statusBadge = document.getElementById('status-' + location);
+                if (statusBadge) {
+                    statusBadge.textContent = status ? 'ON' : 'OFF';
+                    statusBadge.classList.remove(status ? 'bg-danger' : 'bg-success');
+                    statusBadge.classList.add(status ? 'bg-success' : 'bg-danger');
+                }
+            }
+        });
+    </script>
+</body>
 </html>
