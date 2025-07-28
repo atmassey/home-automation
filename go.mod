@@ -8,7 +8,7 @@ require (
 	github.com/seamapi/go v0.6.1
 	gorm.io/driver/postgres v1.6.0
 	gorm.io/gen v0.3.26
-	gorm.io/gorm v1.30.0
+	gorm.io/gorm v1.30.1
 )
 
 require (
